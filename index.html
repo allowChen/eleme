@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+<div id="app" >
+    <transition>
+        <more-info v-show="show" :is-show="show" :name="msg.name" :supports="msg.supports" :bulletin="msg.bulletin" @clo="myShow" :foodScore="msg.foodScore"></more-info>
+    </transition>
+
+    <my-header :avatar="msg.avatar" :description="msg.description" :name="msg.name" :deliveryTime="msg.deliveryTime"  :bulletin="msg.bulletin" :supports="msg.supports" @tempshow="myShow"></my-header>
+    <my-content></my-content>
+
+</div>
+
+<template id="top">
+    <div>
+        <div class="eleme-top">
+            <div class="top-logo-filter">
+                <img :src="avatar" alt="">
+            </div>
+            <div class="top-logo">
+                <h1>
+                    <img :src="avatar" alt="">
+                </h1>
+            </div>
+            <div class="top-content">
+                <div>
+                    <img class="top-content-icon1" src="./images/brand@2x.png" alt="">
+                    <p class="top-content-header" v-text="name"></p>
+                    <p class="top-content-deli">{{description}}/{{deliveryTime}}分钟送达</p>
+                    <img class="top-content-icon2" src="./images/decrease_1@2x.png">
+                    <p class="top-content-footer" v-if="supports">{{supports[0].description}},满50减10</p>
+                </div>
+
+            </div>
+            <p class="top-content-more icon-  top-content-more">5个</p>
+            <span id="top-content-more" @click="chan"></span>
+
+            <div class="top-footer-notice">
+                <img src="./images/bulletin@2x.png" alt=""><p v-text="bulletin"></p>
+
+        </div>
+        </div>
+    </div>
+</template>
+
+
+
+<template id="moreInfo">
+    <div id="moreParent">
+        <div id="moreNone" class="more-info">
+
+        </div>
+        <div class="more-info-top">
+            <h5>{{name}}</h5>
+
+                <star :score=foodScore :num="5" :size="'md'" :foodScore="foodScore"></star>
+
+        </div>
+
+        <div class="favorable">
+            <p class="favorable-title">优惠信息</p>
+            <div class="favorable-content">
+                <div class="favorable-content-info">
+                    <img src="./images/decrease_2@2x.png" alt="">
+                    <p v-if="supports">{{supports[0].description}},满50减10</p>
+                </div>
+                <div class="favorable-content-info">
+                    <img src="./images/discount_2@2x.png" class="info-img2" alt="">
+                    <p v-if="supports">{{supports[2].description}}</p>
+                </div>
+                <div class="favorable-content-info">
+                    <img src="./images/discount_2@2x.png" class="info-img3" alt="">
+                    <p>清肺雪梨汤8折抢购</p>
+                </div>
+                <div class="favorable-content-info">
+                    <img src="./images/decrease_2@2x.png" class="info-img4" alt="">
+                    <p>特价饮品八折抢购</p>
+                </div>
+               <div class="favorable-content-info">
+                   <img src="./images/decrease_2@2x.png" class="info-img5" alt="">
+                   <p>单人特色套餐</p>
+               </div>
+
+            </div>
+        </div>
+        <div class="notice">
+            <p class="notice-title">商家公告</p>
+            <p class="notice-content">{{bulletin}}</p>
+        </div>
+        <div class="more-info-footer" @click="close">
+            <span class="icon-left">/</span>
+            <span class="icon-right">\</span>
+        </div>
+
+    </div>
+
+
+</template>
+
+
+<template id="star">
+    <div class="star-module">
+        <ul>
+            <li v-for="item in itemClass" :class="[item, size]"></li>
+        </ul>
+    </div>
+
+</template>
+
+<template id="content">
+    <div class="eleme-content">
+            <router-link to="/products" >商品</router-link>
+            <router-link to="/evaluate" >商家</router-link>
+            <router-link to="/merchant" >评价</router-link>
+            <router-view></router-view>
+
+    </div>
+</template>
+
+<template id="footer">
+    <div class="eleme-footer">
+        <div class="footer-car">
+            <span class="icon-"></span>
+        </div>
+        <div class="footer-content">
+            <span class="content-pri">￥0</span>
+            <span class="content-fee">另需配送费￥4元</span>
+        </div>
+        <div class="footer-right">
+            <span class="right-fee">￥20起送</span>
+        </div>
+    </div>
+</template>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="./js/index.js"></script>
+
+</body>
+</html>
